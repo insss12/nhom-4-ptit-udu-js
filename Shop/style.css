@@ -115,14 +115,27 @@ a {
     flex: 1;
 }
 
+
 .shop-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid; 
+    grid-template-columns: 1fr auto 1fr; 
+    align-items: center; 
     padding: 10px 20px;
     border: 1px solid #e5e5e5;
     margin-bottom: 30px;
     border-radius: 4px;
+}
+
+.sorting {
+    grid-column: 2 / 3; 
+    justify-self: center; 
+}
+
+.result-count {
+    grid-column: 3 / 4; 
+    justify-self: end; 
+    font-size: 14px; 
+    color: #555;
 }
 
 .sorting select {
