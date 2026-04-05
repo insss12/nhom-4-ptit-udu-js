@@ -11,7 +11,6 @@ function initSidebarAccordion() {
         });
     });
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts(); 
     initSidebarAccordion(); 
@@ -104,5 +103,4 @@ function renderProducts() {
 
     gridContainer.innerHTML = htmlContent;
 }
-
 document.addEventListener('DOMContentLoaded', renderProducts);
