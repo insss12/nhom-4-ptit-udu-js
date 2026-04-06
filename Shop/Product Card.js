@@ -1,20 +1,13 @@
 function initSidebarAccordion() {
     const dropdownLinks = document.querySelectorAll('.has-sub > a');
-
     dropdownLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault(); 
-            
             const parentLi = this.parentElement; 
-
             parentLi.classList.toggle('active'); 
         });
     });
 }
-document.addEventListener('DOMContentLoaded', () => {
-    renderProducts(); 
-    initSidebarAccordion(); 
-});
 
 const productsData = [
     {
@@ -64,7 +57,7 @@ const productsData = [
         imageUrl: "https://via.placeholder.com/200x250/ffffff/000000?text=Phone",
         oldPrice: 110.00,
         newPrice: 95.00
-    }
+    },
 ];
 
 function generateStars(rating) {
@@ -77,24 +70,23 @@ function generateStars(rating) {
 
 function renderProducts() {
     const gridContainer = document.getElementById('product-grid');
+    
     if (!gridContainer) return;
 
     let htmlContent = '';
     
     productsData.forEach(product => {
         const saleBadgeHtml = product.isSale ? `<span class="sale-badge">SALE!</span>` : '';
-        const oldPriceHtml = product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : '';
         
         htmlContent += `
             <article class="product-card">
                 <a href="#" class="product-title">${product.name}</a>
-                <div class="stars">${generateStars(product.rating)}</div>
-                ${saleBadgeHtml}
+                <div class="stars">${generateStars(product.rating)}</div> ${saleBadgeHtml}
                 <a href="#" class="product-image">
                     <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
                 </a>
                 <div class="price-box">
-                    ${oldPriceHtml}
+                    ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
                     <span class="new-price">$${product.newPrice.toFixed(2)}</span>
                 </div>
             </article>
@@ -103,4 +95,8 @@ function renderProducts() {
 
     gridContainer.innerHTML = htmlContent;
 }
-document.addEventListener('DOMContentLoaded', renderProducts);
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();       
+    initSidebarAccordion(); 
+});
