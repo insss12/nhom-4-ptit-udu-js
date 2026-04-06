@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUSU - Electronics eCommerce</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="Product Card.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo-box">
+                <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Logo" class="site-logo">
+                RUSU
+            </a>
+
+            <nav class="menu-box">
+                <ul class="nav-list">
+                    <li class="menu-item"><a href="#">Home</a></li>
+                    <li class="menu-item"><a href="#">Shop</a></li>
+                    <li class="menu-item"><a href="#">Blog</a></li>
+                    <li class="menu-item"><a href="#">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="banner">
+        <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Modern Electronics Collection" fetchpriority="high">
+    </div>
+
+    <nav aria-label="breadcrumb" class="breadcrumb-container">
+        <a href="#">Home</a> &gt; <span class="current" aria-current="page">Shop</span>
+    </nav>
+
+    <main class="shop-page-container">
+        <div class="shop-main">
+            <header class="shop-toolbar">
+                <div class="sorting">
+                    <select aria-label="Sort products">
+                        <option>Sort by average rating</option>
+                        <option>Sort by latest</option>
+                        <option>Sort by price</option>
+                    </select>
+                </div>
+                <p class="result-count">Showing 1–9 of 21 results</p>
+            </header>
+
+            <div id="product-grid" class="product-grid"></div>
+        </div>
+
+        <aside class="shop-sidebar">
+            <div class="sidebar-widget">
+                <h3>PRODUCT CATEGORIES</h3>
+                <ul class="category-list">
+                <li><a href="#">Cameras & Camcoders</a></li>
+            
+                <li class="has-sub">
+                    <a href="#">Computer & Networking <span class="arrow"></span></a>
+                    <ul class="sub-category">
+                        <li><a href="#">Computer</a></li>
+                        <li><a href="#">Networking</a></li>
+                    </ul>
+                </li>
+            
+                <li><a href="#">Games & Consoles</a></li>
+                <li><a href="#">Headphone & Speaker</a></li>
+                <li><a href="#">Movies & Video Games</a></li>
+                <li><a href="#">Smartphone</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
