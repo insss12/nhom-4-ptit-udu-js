@@ -81,13 +81,22 @@ function renderProducts() {
         htmlContent += `
             <article class="product-card">
                 <a href="#" class="product-title">${product.name}</a>
-                <div class="stars">${generateStars(product.rating)}</div> ${saleBadgeHtml}
+                <div class="stars">${generateStars(product.rating)}</div>
+                ${saleBadgeHtml}
                 <a href="#" class="product-image">
                     <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
                 </a>
                 <div class="price-box">
                     ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
                     <span class="new-price">$${product.newPrice.toFixed(2)}</span>
+                </div>
+                <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <button class="wishlist-btn" title="Add to wishlist">♡</button>
+                    <button class="compare-btn" title="Compare">⇄</button>
+                </div>
+                <div class="product-overlay">
+                    <button class="quick-view-btn">Quick View</button>
                 </div>
             </article>
         `;

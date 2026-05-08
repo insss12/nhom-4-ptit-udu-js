@@ -98,6 +98,11 @@ a {
     font-weight: 600;
 }
 
+.breadcrumb-container a:hover{
+    color: #1a64f0;
+    transition: all 0.3s ease;
+}
+
 .shop-page-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -131,13 +136,6 @@ a {
     justify-self: center; 
 }
 
-.result-count {
-    grid-column: 3 / 4; 
-    justify-self: end; 
-    font-size: 14px; 
-    color: #555;
-}
-
 .sorting select {
     padding: 8px 15px;
     border: 1px solid #e5e5e5;
@@ -169,6 +167,7 @@ a {
     gap: 10px;
     border-radius: 6px;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
 }
 
 .product-card:hover {
@@ -228,6 +227,97 @@ a {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.quick-view-btn {
+    background-color: #1a64f0;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.quick-view-btn:hover {
+    background-color: #1452c0;
+}
+
+.product-actions {
+    display: none;
+    gap: 10px;
+    margin-top: 15px;
+    z-index: 3;
+    position: relative;
+}
+
+.product-card:hover .product-actions {
+    display: flex;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+    background-color: #2d3436;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    pointer-events: auto;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #1a1d1f;
+}
+
+.wishlist-btn,
+.compare-btn {
+    background-color: #2d3436;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.wishlist-btn:hover,
+.compare-btn:hover {
+    background-color: #1a1d1f;
 }
 
 .old-price {
