@@ -11,6 +11,7 @@ function initSidebarAccordion() {
 
 const ITEMS_PER_PAGE = 12;
 let currentPage = 1;
+let cartItems = 0;
 
 function generateStars(rating) {
     let starsHtml = '';
@@ -48,6 +49,7 @@ function renderProducts() {
                 </div>
                 <div class="product-actions">
                     <button class="add-to-cart-btn">Add to cart</button>
+                    <button class="remove-from-cart-btn">Remove</button>
                 </div>
                 <div class="product-overlay">
                     <button class="quick-view-btn">Quick View</button>
@@ -58,6 +60,35 @@ function renderProducts() {
 
     gridContainer.innerHTML = htmlContent;
     renderPagination();
+    attachAddToCartListeners();
+}
+
+function attachAddToCartListeners() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    const removeFromCartButtons = document.querySelectorAll('.remove-from-cart-btn');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            cartItems++;
+            updateCartDisplay();
+        });
+    });
+    
+    removeFromCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (cartItems > 0) {
+                cartItems--;
+                updateCartDisplay();
+            }
+        });
+    });
+}
+
+function updateCartDisplay() {
+    const cartCountElement = document.querySelector('.cart-count');
+    if (cartCountElement) {
+        cartCountElement.textContent = cartItems + ' items';
+    }
 }
 
 function renderPagination() {
@@ -114,6 +145,7 @@ function goToPage(pageNumber) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
     renderProducts();       
     initSidebarAccordion(); 
 });
