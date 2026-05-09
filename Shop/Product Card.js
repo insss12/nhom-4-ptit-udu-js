@@ -74,13 +74,10 @@ function renderPagination() {
 
     let paginationHtml = '<div class="pagination">';
     
-    // First page button
     paginationHtml += `<button class="pagination-btn pagination-first" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
     
-    // Previous page button
     paginationHtml += `<button class="pagination-btn pagination-prev" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
     
-    // Page numbers
     const maxVisiblePages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -94,10 +91,8 @@ function renderPagination() {
         paginationHtml += `<button class="pagination-btn pagination-number ${isActive ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
     }
     
-    // Next page button
     paginationHtml += `<button class="pagination-btn pagination-next" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
     
-    // Last page button
     paginationHtml += `<button class="pagination-btn pagination-last" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
     
     paginationHtml += '</div>';
@@ -115,7 +110,6 @@ function goToPage(pageNumber) {
     currentPage = pageNumber;
     renderProducts();
     
-    // Scroll to top of product grid
     document.getElementById('product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
