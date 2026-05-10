@@ -9,56 +9,9 @@ function initSidebarAccordion() {
     });
 }
 
-const productsData = [
-    {
-        name: "27-inch 4K UHD Monitor with HDR",
-        rating: 5,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Monitor",
-        oldPrice: 86.00,
-        newPrice: 79.00
-    },
-    {
-        name: "Pro Android Tablet 10.4 inch",
-        rating: 4,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Tablet",
-        oldPrice: 76.00,
-        newPrice: 69.00
-    },
-    {
-        name: "Smartphone 5G 128GB Storage",
-        rating: 5,
-        isSale: false,
-        imageUrl: "https://via.placeholder.com/200x250/ffffff/000000?text=Phone",
-        oldPrice: null,
-        newPrice: 80.00
-    },
-    {
-        name: "Gaming Monitor 144Hz 1ms",
-        rating: 5,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Monitor",
-        oldPrice: 150.00,
-        newPrice: 120.00
-    },
-    {
-        name: "Ultra-slim Business Tablet",
-        rating: 5,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Tablet",
-        oldPrice: 99.00,
-        newPrice: 85.00
-    },
-    {
-        name: "Flagship Smartphone Pro Max",
-        rating: 4,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x250/ffffff/000000?text=Phone",
-        oldPrice: 110.00,
-        newPrice: 95.00
-    },
-];
+const ITEMS_PER_PAGE = 12;
+let currentPage = 1;
+let cartItems = 0;
 
 function generateStars(rating) {
     let starsHtml = '';
@@ -73,15 +26,20 @@ function renderProducts() {
     
     if (!gridContainer) return;
 
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const paginatedProducts = productsData.slice(startIndex, endIndex);
+
     let htmlContent = '';
     
-    productsData.forEach(product => {
+    paginatedProducts.forEach(product => {
         const saleBadgeHtml = product.isSale ? `<span class="sale-badge">SALE!</span>` : '';
         
         htmlContent += `
             <article class="product-card">
                 <a href="#" class="product-title">${product.name}</a>
-                <div class="stars">${generateStars(product.rating)}</div> ${saleBadgeHtml}
+                <div class="stars">${generateStars(product.rating)}</div>
+                ${saleBadgeHtml}
                 <a href="#" class="product-image">
                     <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
                 </a>
@@ -89,14 +47,106 @@ function renderProducts() {
                     ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
                     <span class="new-price">$${product.newPrice.toFixed(2)}</span>
                 </div>
+                <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <button class="remove-from-cart-btn">Remove</button>
+                </div>
+                <div class="product-overlay">
+                    <button class="quick-view-btn">Quick View</button>
+                </div>
             </article>
         `;
     });
 
     gridContainer.innerHTML = htmlContent;
+    renderPagination();
+    attachAddToCartListeners();
+}
+
+function attachAddToCartListeners() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    const removeFromCartButtons = document.querySelectorAll('.remove-from-cart-btn');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            cartItems++;
+            updateCartDisplay();
+        });
+    });
+    
+    removeFromCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (cartItems > 0) {
+                cartItems--;
+                updateCartDisplay();
+            }
+        });
+    });
+}
+
+function updateCartDisplay() {
+    const cartCountElement = document.querySelector('.cart-count');
+    if (cartCountElement) {
+        cartCountElement.textContent = cartItems + ' items';
+    }
+}
+
+function renderPagination() {
+    const paginationContainer = document.getElementById('pagination-container');
+    
+    if (!paginationContainer) return;
+
+    const totalPages = Math.ceil(productsData.length / ITEMS_PER_PAGE);
+    
+    if (totalPages <= 1) {
+        paginationContainer.innerHTML = '';
+        return;
+    }
+
+    let paginationHtml = '<div class="pagination">';
+    
+    paginationHtml += `<button class="pagination-btn pagination-first" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
+    
+    paginationHtml += `<button class="pagination-btn pagination-prev" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+    
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const isActive = i === currentPage;
+        paginationHtml += `<button class="pagination-btn pagination-number ${isActive ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+    
+    paginationHtml += `<button class="pagination-btn pagination-next" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+    
+    paginationHtml += `<button class="pagination-btn pagination-last" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
+    
+    paginationHtml += '</div>';
+    
+    paginationContainer.innerHTML = paginationHtml;
+}
+
+function goToPage(pageNumber) {
+    const totalPages = Math.ceil(productsData.length / ITEMS_PER_PAGE);
+    
+    if (pageNumber < 1 || pageNumber > totalPages) {
+        return;
+    }
+    
+    currentPage = pageNumber;
+    renderProducts();
+    
+    document.getElementById('product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
     renderProducts();       
     initSidebarAccordion(); 
 });
+
