@@ -1,6 +1,4 @@
 /* Section 2.1: Blog Detail */
-/* Layout */
-
 *{
   margin: 0;
   padding: 0;
@@ -95,15 +93,13 @@ blockquote {
   font-size: 14px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .blog-layout {
     flex-direction: column;
   }
 }
 
-/* Section 2.1.1: Comment Form */
-/* COMMENTS */
+/* 2.1.1: Comment */
 .comments-section {
   margin-top: 40px;
 }
@@ -146,7 +142,6 @@ blockquote {
   padding: 5px 10px;
 }
 
-/* FORM */
 .comment-form {
   margin-top: 40px;
 }
