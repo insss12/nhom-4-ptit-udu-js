@@ -204,7 +204,6 @@ a {
     color: #666;
 }
 
-/* PROMO CARDS */
 .promo-cards {
     display: flex;
     gap: 25px;
@@ -289,7 +288,7 @@ a {
 
 .sale-badge {
     display: inline-block;
-    background: #ff6a00;
+    background: #02ff81;
     color: white;
     font-size: 12px;
     padding: 4px 8px;
