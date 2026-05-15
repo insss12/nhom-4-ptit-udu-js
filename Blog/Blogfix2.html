@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>My Website</title>
   <link rel="stylesheet" href="stylefix1.1.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,13 +28,22 @@
 </div>
 
 <!-- MAIN HEADER -->
-<header class="main-header">
+<header class="header">
+    <div class="header-container">
+        <a href="#" class="logo-box">
+            <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Logo" class="site-logo">
+                RUSU
+        </a>
 
-  <div class="container header-flex">
-
-    <!-- Logo -->
-    <div class="logo">
-      <h1>Add soon :v</h1>
+        <nav class="menu-box">
+            <ul class="nav-list">
+                <li class="menu-item"><a href="../Thanh/main.html">Home</a></li>
+                <li class="menu-item"><a href="../Shop/Assignment.html">Shop</a></li>
+                <li class="menu-item"><a href="../Blog/Blogfix2.html">Blog</a></li>
+                <li class="menu-item"><a href="#">Contact Us</a></li>
+                <li class="menu-item"><a href="#">My Account</a></li>
+            </ul>
+        </nav>
     </div>
 
     <!-- Menu -->
@@ -73,10 +85,6 @@
 
     <form class="search-form">
 
-      <select>
-        <option>All Categories</option>
-      </select>
-
       <input type="text" placeholder="Search product...">
 
       <button>SEARCH</button>
@@ -96,7 +104,7 @@
     <div class="cart-dropdown">
 
       <div class="cart-item">
-        <img src="blog1.jpg">
+        <img src="KhoPhoto/blog1.jpg" alt="Product Image">
 
         <div class="cart-info">
           <h4>Product Name</h4>
@@ -134,7 +142,7 @@
         
       <div class="blog-card">
 
-        <img src="blog1.jpg" alt="blog">
+        <img src="KhoPhoto/blog1.jpg" alt="Blog Image">
 
         <div class="blog-content">
 
@@ -150,7 +158,7 @@
             Discover the latest gadgets that are trending this year...
           </p>
 
-          <a href="Blog-read1.html" class="read-more">
+          <a href="../B_read/Blog-read1.html" class="read-more">
             Read More
           </a>
 
@@ -161,7 +169,7 @@
       <!-- Blog item -->
       <div class="blog-card">
 
-        <img src="blog2.webp" alt="blog">
+        <img src="KhoPhoto/blog2.webp" alt="Blog Image">
 
         <div class="blog-content">
 
@@ -177,7 +185,7 @@
             Looking for quality sound? Here are the best picks...
           </p>
 
-          <a href="#" class="read-more">
+          <a href="../B_read/Blog-read2.html" class="read-more">
             Read More
           </a>
 
@@ -188,7 +196,7 @@
       <!-- Blog item -->
       <div class="blog-card">
 
-        <img src="blog3.jpg" alt="blog">
+        <img src="KhoPhoto/blog3.jpg" alt="Blog Image">
 
         <div class="blog-content">
 
@@ -234,12 +242,12 @@
       <h3>RECENT COMMENTS</h3>
 
       <div class="comment">
-        <img src="avatar.jpg" alt="">
+        <img src="KhoPhoto/avatar.jpg" alt="">
         <p><b>demo</b> says: Nice blog!</p>
       </div>
 
       <div class="comment">
-        <img src="avatar.jpg" alt="">
+        <img src="KhoPhoto/avatar.jpg" alt="">
         <p><b>admin</b> says: Thank you!</p>
       </div>
 
@@ -280,33 +288,6 @@
 <!-- FOOTER -->
 <footer class="footer">
 
-  <!-- Newsletter -->
-  <div class="newsletter">
-
-    <div class="newsletter-text">
-
-      <h2>
-        Sign Up For Newsletters
-      </h2>
-
-      <p>
-        Get E-mail updates about our latest shop and special offers.
-      </p>
-
-    </div>
-
-    <div class="newsletter-form">
-
-      <input type="email" placeholder="Your email address...">
-
-      <button>
-        SUBSCRIBE
-      </button>
-
-    </div>
-
-  </div>
-
   <!-- Footer Content -->
   <div class="footer-content">
 
@@ -315,9 +296,9 @@
 
       <h3>CONTACTS US</h3>
 
-      <p>Address: Your address goes here..</p>
+      <p>Address: Javaproject</p>
       <p>Phone: 0123456789</p>
-      <p>Email: demo@example.com</p>
+      <p>Email: Javaproject@gmail.com</p>
 
     </div>
 
@@ -328,7 +309,6 @@
 
       <ul>
         <li>About Us</li>
-        <li>Delivery Information</li>
         <li>Best Sales</li>
       </ul>
 
@@ -342,7 +322,6 @@
       <ul>
         <li>My Account</li>
         <li>Shopping Cart</li>
-        <li>Wishlist</li>
       </ul>
 
     </div>
