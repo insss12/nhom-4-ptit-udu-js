@@ -1,106 +1,106 @@
 const productsData = [
     {
-        name: "27-inch 4K UHD Monitor with HDR",
+        name: "LG Monitor Ultra HD 4K IPS 27 HDR 400 DCI-P3 95% 27UP650-W",
         rating: 5,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Monitor",
-        oldPrice: 86.00,
-        newPrice: 79.00
+        imageUrl: "./DataImage/LG Monitor Ultra HD 4K IPS 27 HDR 400 DCI-P3 95%25%2027UP650-W.png",
+        oldPrice: 279.00,
+        newPrice: 250.00
     },
     {
-        name: "Pro Android Tablet 10.4 inch",
+        name: "Asus ROG Swift OLED PG27UCDM",
         rating: 4,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Tablet",
-        oldPrice: 76.00,
-        newPrice: 69.00
+        isSale: false,
+        imageUrl: "./DataImage/Asus ROG Swift OLED PG27UCDM.png",
+        oldPrice: null,
+        newPrice: 1329.00 
     },
     {
-        name: "Smartphone 5G 128GB Storage",
+        name: "BenQ PhotoVue sw272u 27 4K HDR Monitor",
         rating: 5,
         isSale: false,
-        imageUrl: "https://via.placeholder.com/200x250/ffffff/000000?text=Phone",
+        imageUrl: "./DataImage/BenQ PhotoVue sw272u 27 4K HDR Monitor.png",
         oldPrice: null,
-        newPrice: 80.00
+        newPrice: 1500.00
     },
     {
-        name: "Gaming Monitor 144Hz 1ms",
+        name: "Dell UltraSharp U2725QE",
         rating: 5,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Monitor",
-        oldPrice: 150.00,
-        newPrice: 120.00
+        imageUrl: "./DataImage/Dell UltraSharp U2725QE.png",
+        oldPrice: 640.00,
+        newPrice: 608.00
     },
     {
-        name: "Ultra-slim Business Tablet",
+        name: "Apple iPhone 17 Pro 256GB",
         rating: 5,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Tablet",
-        oldPrice: 99.00,
-        newPrice: 85.00
+        imageUrl: "./DataImage/Apple iPhone 17 Pro 256GB.png",
+        oldPrice: 1450.00,
+        newPrice: 1329.00
     },
     {
-        name: "Flagship Smartphone Pro Max",
+        name: "Samsung Galaxy S26 Ultra 5G 12GB",
         rating: 4,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x250/ffffff/000000?text=Phone",
+        imageUrl: "./DataImage/Samsung Galaxy S26 Ultra 5G 12GB.png",
         oldPrice: 110.00,
         newPrice: 95.00
     },
     {
-        name: "Wireless Noise-Cancelling Headphones",
-        rating: 5,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Headphones",
-        oldPrice: 89.00,
-        newPrice: 72.00
-    },
-    {
-        name: "Portable Bluetooth Speaker",
-        rating: 4,
-        isSale: false,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Speaker",
-        oldPrice: null,
-        newPrice: 45.00
-    },
-    {
-        name: "Ultra HD Webcam 1080p",
-        rating: 5,
-        isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Webcam",
-        oldPrice: 65.00,
-        newPrice: 52.00
-    },
-    {
-        name: "Mechanical Gaming Keyboard",
+        name: "Sony Alpha A7 IV",
         rating: 5,
         isSale: false,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Keyboard",
+        imageUrl: "./DataImage/Sony Alpha A7 IV.png",
         oldPrice: null,
-        newPrice: 99.00
+        newPrice: 1500.00
     },
     {
-        name: "Wireless Gaming Mouse",
+        name: "Sony WH-1000XM5",
         rating: 4,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Mouse",
-        oldPrice: 55.00,
-        newPrice: 42.00
+        imageUrl: "./DataImage/Sony WH-1000XM5.png",
+        oldPrice: 300.00,
+        newPrice: 265.00
     },
     {
-        name: "USB-C Hub Multi-Port Adapter",
+        name: "Bose QuietComfort Ultra Headphones",
         rating: 5,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Hub",
-        oldPrice: 48.00,
-        newPrice: 35.00
+        imageUrl: "./DataImage/Bose QuietComfort Ultra Headphones.png",
+        oldPrice: 310.00,
+        newPrice: 265.00
     },
     {
-        name: "4K Video Camera Professional",
+        name: "Sonos Era 300 Bluetooth Speaker System E30G1US1",
         rating: 5,
+        isSale: false,
+        imageUrl: "./DataImage/Sonos Era 300 Bluetooth Speaker System E30G1US1.png",
+        oldPrice: null,
+        newPrice: 400.00
+    },
+    {
+        name: "Router gaming Wifi 7 ASUS ROG Rapture GT-BE98 PRO",
+        rating: 4,
         isSale: true,
-        imageUrl: "https://via.placeholder.com/200x150/ffffff/000000?text=Camera",
-        oldPrice: 299.00,
-        newPrice: 249.00
+        imageUrl: "./DataImage/Router gaming Wifi 7 ASUS ROG Rapture GT-BE98 PRO.png",
+        oldPrice: 1200.00,
+        newPrice: 1163.00
+    },
+    {
+        name: "UTp-link BE900",
+        rating: 5,
+        isSale: false,
+        imageUrl: "./DataImage/Tp-link BE900.png",
+        oldPrice: null,
+        newPrice: 999.00
+    },
+    {
+        name: "AMD Ryzen 9 9950X",
+        rating: 5,
+        isSale: false,
+        imageUrl: "./DataImage/AMD Ryzen 9 9950X.png",
+        oldPrice: null,
+        newPrice: 1500.00
     }
 ];
