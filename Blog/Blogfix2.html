@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>My Website</title>
-  <link rel="javascript" href="js.js">
-  <link rel="stylesheet" href="stylefix1.1.css">
+  <script src="khoJs/js.js" defer></script>
+  <link rel="stylesheet" href="stylefix1.2.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
 
 <body>
 
-<!-- TOP BAR -->
 <div class="top-bar">
   <div class="container">
 
@@ -28,11 +27,10 @@
   </div>
 </div>
 
-<!-- MAIN HEADER -->
 <header class="header">
     <div class="header-container">
-        <a href="rusu.png" class="logo-box">
-            <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Logo" class="site-logo">
+        <a href="../Thanh/main.html" class="logo-box">
+            <img src="KhoPhoto/rusu.png" alt="Logo" class="site-logo">
                 RUSU
         </a>
 
@@ -47,14 +45,19 @@
         </nav>
     </div>
 
-  </div>
-
 </header>
 
-<!-- SEARCH AREA -->
 <div class="search-wrapper">
 
-  <!-- LEFT -->
+  <div class="search-center">
+
+    <form class="search-form">
+      <input type="text" placeholder="Search product...">
+      <button>SEARCH</button>
+    </form>
+
+  </div>
+
   <div class="category-box">
 
     <div class="category-header">
@@ -72,55 +75,8 @@
 
   </div>
 
-  <!-- CENTER -->
-  <div class="search-center">
-
-    <form class="search-form">
-
-      <input type="text" placeholder="Search product...">
-
-      <button>SEARCH</button>
-
-    </form>
-
-  </div>
-
-  <!-- RIGHT -->
-  <div class="cart-box">
-
-    <div class="cart-header">
-      <span>🛒</span>
-      <span>2 items $152.00</span>
-    </div>
-
-    <div class="cart-dropdown">
-
-      <div class="cart-item">
-        <img src="KhoPhoto/blog1.jpg" alt="Product Image">
-
-        <div class="cart-info">
-          <h4>Product Name</h4>
-          <p>1 X $60.00</p>
-        </div>
-      </div>
-
-      <div class="cart-total">
-        <p><span>Sub total:</span> <span>$138.00</span></p>
-        <p><span>Total:</span> <span>$138.00</span></p>
-      </div>
-
-      <div class="cart-buttons">
-        <button class="view-cart">VIEW CART</button>
-        <button class="checkout">CHECKOUT</button>
-      </div>
-
-    </div>
-
-  </div>
-
 </div>
 
-<!-- BLOG SECTION -->
 <section class="blog-section">
 
   <div class="container">
@@ -158,7 +114,6 @@
 
       </div>
 
-      <!-- Blog item -->
       <div class="blog-card">
 
         <img src="KhoPhoto/blog2.webp" alt="Blog Image">
@@ -185,7 +140,6 @@
 
       </div>
 
-      <!-- Blog item -->
       <div class="blog-card">
 
         <img src="KhoPhoto/blog3.jpg" alt="Blog Image">
@@ -214,10 +168,8 @@
 
     </div>
 
-  <!-- SIDEBAR -->
    <div class="sidebar">
 
-    <!-- Search -->
     <div class="widget">
 
       <h3>SEARCH</h3>
@@ -227,7 +179,6 @@
       <button id="searchBtn">SEARCH</button>
     </div>
 
-    <!-- Recent Comments -->
     <div class="widget">
 
       <h3>RECENT COMMENTS</h3>
@@ -244,7 +195,6 @@
 
     </div>
 
-    <!-- Tags -->
     <div class="widget">
 
       <h3>TAGS</h3>
@@ -262,7 +212,6 @@
 
  </div>
 
- <!-- PAGINATION -->
  <div class="pagination">
 
     <a href="#" class="active">1</a>
@@ -276,70 +225,43 @@
 
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
 
-  <!-- Footer Content -->
-  <div class="footer-content">
+    <div class="footer-container">
 
-    <!-- Contact -->
-    <div class="footer-box">
+        <div class="footer-col">
+            <h4>CONTACT US</h4>
+            <p>Address: Javaproject</p>
+            <p>Phone: 0123456789</p>
+            <p>Email: Javaproject@gmail.com</p>
+        </div>
 
-      <h3>CONTACTS US</h3>
+        <div class="footer-col">
+            <h4>INFORMATION</h4>
+            <a href="#">About Us</a>
+            <a href="#">Best Sales</a>
+        </div>
 
-      <p>Address: Javaproject</p>
-      <p>Phone: 0123456789</p>
-      <p>Email: Javaproject@gmail.com</p>
+        <div class="footer-col">
+            <h4>MY ACCOUNT</h4>
+            <a href="#">My Account</a>
+            <a href="#">Shopping Cart</a>
+        </div>
 
-    </div>
-
-    <!-- Information -->
-    <div class="footer-box">
-
-      <h3>INFORMATION</h3>
-
-      <ul>
-        <li>About Us</li>
-        <li>Best Sales</li>
-      </ul>
-
-    </div>
-
-    <!-- Account -->
-    <div class="footer-box">
-
-      <h3>MY ACCOUNT</h3>
-
-      <ul>
-        <li>My Account</li>
-        <li>Shopping Cart</li>
-      </ul>
+        <div class="footer-col">
+            <h4>CUSTOMER SERVICE</h4>
+            <a href="#">Contact Us</a>
+            <a href="#">Order History</a>
+            <a href="#">Specials</a>
+        </div>
 
     </div>
 
-    <!-- Service -->
-    <div class="footer-box">
-
-      <h3>CUSTOMER SERVICE</h3>
-
-      <ul>
-        <li>Contact Us</li>
-        <li>Order History</li>
-        <li>Specials</li>
-      </ul>
-
+    <div class="footer-bottom">
+        © 2026 Pj
     </div>
-
-  </div>
-
-  <!-- Bottom -->
-  <div class="footer-bottom">
-    © 2026 Pj
-  </div>
 
 </footer>
-
-<button id="topBtn">↑</button>
 
 </body>
 </html>
