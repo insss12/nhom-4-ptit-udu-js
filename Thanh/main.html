@@ -11,7 +11,6 @@
 </head>
 <body>
 
-    <!-- Main Header -->
     <header class="header">
         <div class="header-container">
             <a href="#" class="logo-box">
@@ -31,6 +30,7 @@
     </header>
 
     <div class="main-wrapper">
+
         <div class="search-section">
             <div class="search-inner">
                 <button class="categories-btn">ALL CATEGORIES ☰</button>
@@ -45,57 +45,104 @@
             </div>
         </div>
 
-        <div class="ads">
-            <div class="ads-inner">
-                <img src="laptop.jpg" alt="" style="min-height:350px; background:#e8e8e8; display:block; width:100%;">
+        <div class="banner-slider">
+            <div class="banner-slider-inner">
+                <div class="banner-track" id="bannerTrack">
+
+                    <div class="banner-slide">
+                        <img src="keyboardhead.jpg" alt="Banner 1">
+                        <div class="banner-overlay">
+                            <span class="banner-tag">NEW ARRIVAL</span>
+                            <h2 class="banner-title">Level Up Your Setup</h2>
+                            <p class="banner-sub">Premium gaming gear at unbeatable prices</p>
+                            <a href="#" class="banner-btn">SHOP NOW</a>
+                        </div>
+                    </div>
+
+                    <div class="banner-slide">
+                        <img src="laptop picture.png" alt="Banner 2">
+                        <div class="banner-overlay">
+                            <span class="banner-tag">LIMITED OFFER</span>
+                            <h2 class="banner-title">Big Deals This Week</h2>
+                            <p class="banner-sub">Up to 30% off on selected products</p>
+                            <a href="#" class="banner-btn">SEE DEALS</a>
+                        </div>
+                    </div>
+
+                    <div class="banner-slide">
+                        <img src="banner3.webp" alt="Banner 3">
+                        <div class="banner-overlay">
+                            <span class="banner-tag">BESTSELLER</span>
+                            <h2 class="banner-title">Top Picks for Gamers</h2>
+                            <p class="banner-sub">Handpicked by our community — rated 5 stars</p>
+                            <a href="#" class="banner-btn">EXPLORE</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="banner-arrow banner-arrow-left" id="bannerPrev">&lt;</button>
+                <button class="banner-arrow banner-arrow-right" id="bannerNext">&gt;</button>
+
+                <div class="banner-dots">
+                    <span class="banner-dot active" data-index="0"></span>
+                    <span class="banner-dot" data-index="1"></span>
+                    <span class="banner-dot" data-index="2"></span>
+                </div>
             </div>
         </div>
 
         <section class="features-wrap">
-        <section class="features">
-            <div class="feature">
-                <img src="transport.png" alt="">
-                <div>
-                    <h4>Free Delivery</h4>
-                    <p>Free shipping on all order</p>
+            <section class="features">
+                <div class="feature">
+                    <img src="transport.png" alt="">
+                    <div>
+                        <h4>Free Delivery</h4>
+                        <p>Free shipping on all order</p>
+                    </div>
                 </div>
-            </div>
-            <div class="feature">
-                <img src="support.png" alt="">
-                <div>
-                    <h4>Online Support 24/7</h4>
-                    <p>Support online 24 hours a day</p>
+                <div class="feature">
+                    <img src="support.png" alt="">
+                    <div>
+                        <h4>Online Support 24/7</h4>
+                        <p>Support online 24 hours a day</p>
+                    </div>
                 </div>
-            </div>
-            <div class="feature">
-                <img src="dollar.png" alt="">
-                <div>
-                    <h4>Money Return</h4>
-                    <p>Back guarantee under 7 days</p>
+                <div class="feature">
+                    <img src="dollar.png" alt="">
+                    <div>
+                        <h4>Money Return</h4>
+                        <p>Back guarantee under 7 days</p>
+                    </div>
                 </div>
-            </div>
-            <div class="feature">
-                <img src="discount.png" alt="">
-                <div>
-                    <h4>Member Discount</h4>
-                    <p>On every order over $120.00</p>
+                <div class="feature">
+                    <img src="discount.png" alt="">
+                    <div>
+                        <h4>Member Discount</h4>
+                        <p>On every order over $120.00</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </section>
 
         <section class="promo-cards">
             <div class="promo-card">
                 <span class="badge">SALE -20% OFF</span>
-                <img src="a1a2eb180399819.Y3JvcCwxMDgwLDg0NCwwLDI2.png" alt="">
+                <div class="promo-img-wrap">
+                    <img src="a1a2eb180399819.Y3JvcCwxMDgwLDg0NCwwLDI2.png" alt="">
+                </div>
             </div>
             <div class="promo-card">
                 <span class="badge">SALE -30% OFF</span>
-                <img src="test.jpeg" alt="">
+                <div class="promo-img-wrap">
+                    <img src="test.jpeg" alt="">
+                </div>
             </div>
             <div class="promo-card">
                 <span class="badge">SALE -20% OFF</span>
-                <img src="images.jpg" alt="">
+                <div class="promo-img-wrap">
+                    <img src="images.jpg" alt="">
+                </div>
             </div>
         </section>
 
@@ -108,89 +155,127 @@
                 </div>
             </div>
             <div class="deal-grid">
+                
                 <div class="deal-card">
-                    <h3>Headphone Gaming Havit HV-H2232D
-</h3>
+                    <h3>Headphone Gaming Havit HV-H2232D</h3>
                     <div class="stars">★★★★★</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="tainghe1.png" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="tainghe1.png" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$86.00</span>
                         <span class="new">$79.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
-                    <h3>Keychron K2 Wireless Mechanical Keyboard
-</h3>
+                    <h3>Keychron K2 Wireless Mechanical Keyboard</h3>
                     <div class="stars">★★★★☆</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="keyboard.png" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="keyboard.png" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$80.00</span>
                         <span class="new">$70.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
-                    <h3> Razer DeathAdder V3 Hyperspeed</h3>
+                    <h3>Razer DeathAdder V3 Hyperspeed</h3>
                     <div class="stars">★★★★★</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="mouses.png" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="mouses.png" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$65.00</span>
                         <span class="new">$60.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
                     <h3>iBUYPOWER Element 9 Gaming Case</h3>
                     <div class="stars">★★★☆☆</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="pc.png" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="pc.png" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$62.00</span>
                         <span class="new">$56.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
-                    <h3>Laptop MSI Cyborg 15 B13WEKG-676VN
-</h3>
+                    <h3>Laptop MSI Cyborg 15 B13WEKG-676VN</h3>
                     <div class="stars">★★★★★</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="laptop.webp" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="laptop.webp" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$120.00</span>
                         <span class="new">$99.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
                     <h3>RAM PC Kingston Fury Beast</h3>
                     <div class="stars">★★★★☆</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="ram.webp" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="ram.webp" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$55.00</span>
                         <span class="new">$45.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
                     <h3>VGA Asus Tuf Gaming Geforce RTX 5070</h3>
                     <div class="stars">★★★★☆</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="card.webp" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="card.webp" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$40.00</span>
                         <span class="new">$32.00</span>
                     </div>
                 </div>
+
                 <div class="deal-card">
                     <h3>Màn hình Gaming Samsung Odyssey</h3>
                     <div class="stars">★★★★★</div>
-                    <span class="sale-badge">SALE!</span>
-                    <img src="manhinh.webp" alt="">
+                    <div class="deal-img-container">
+                        <span class="sale-badge">SALE!</span>
+                        <div class="deal-img-wrap">
+                            <img src="manhinh.webp" alt="">
+                        </div>
+                    </div>
                     <div class="price">
                         <span class="old">$75.00</span>
                         <span class="new">$65.00</span>
                     </div>
                 </div>
+
             </div>
             <div class="pagination">
                 <button class="page-btn active">1</button>
@@ -200,7 +285,6 @@
                 <button class="page-btn">&gt;&gt;</button>
             </div>
         </section>
-
 
         <footer class="footer">
             <div class="footer-inner">
@@ -233,7 +317,9 @@
                 </div>
             </div>
         </footer>
+
     </div>
 
+    <script src="main.js" defer></script>
 </body>
 </html>
