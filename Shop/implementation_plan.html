@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Plan: JS to MySQL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { border-bottom: 1px solid #bdc3c7; margin-top: 30px; }
+        pre { background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; border: 1px solid #ddd; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 3px; font-family: Consolas, monospace; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+        .alert-warning { background-color: #fcf8e3; border-color: #faebcc; color: #8a6d3b; }
+        .alert-info { background-color: #d9edf7; border-color: #bce8f1; color: #31708f; }
+        .mermaid { background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+    <!-- Include Mermaid.js for rendering diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Chuyển đổi nguồn dữ liệu JS → MySQL (Database_Web)</h1>
+        
+        <p>Chuyển toàn bộ dữ liệu sản phẩm (đang ở <code>products-data.js</code>) và dữ liệu giỏ hàng (đang ở <code>localStorage</code>) sang lấy từ database MySQL tên <strong>Database_Web</strong>, thông qua một backend API trung gian.</p>
+
+        <h2>Kiến trúc hiện tại vs. kiến trúc mới</h2>
+        
+        <h3>HIỆN TẠI</h3>
+        <div class="mermaid">
+        graph LR
+            A1["Assignment.html"] -->|"&lt;script&gt;"| B1["products-data.js"]
+            A1 -->|"&lt;script&gt;"| C1["Product Card.js"]
+            C1 -->|"getCart() / saveCart()"| D1["localStorage"]
+            E1["cart.html"] -->|"&lt;script&gt;"| F1["cart.js"]
+            F1 -->|"getCart() / saveCart()"| D1
+        </div>
+
+        <h3>SAU CHUYỂN ĐỔI</h3>
+        <div class="mermaid">
+        graph LR
+            A2["Assignment.html"] -->|"&lt;script&gt;"| C2["Product Card.js"]
+            C2 -->|"fetch('/api/products')"| G2["Backend API (Node.js)"]
+            C2 -->|"fetch('/api/cart')"| G2
+            E2["cart.html"] -->|"&lt;script&gt;"| F2["cart.js"]
+            F2 -->|"fetch('/api/cart')"| G2
+            G2 -->|"SQL query"| H2["MySQL: Database_Web"]
+        </div>
+
+        <h2>User Review Required</h2>
+        <div class="alert alert-info">
+            <strong>Cần có backend:</strong> Trình duyệt (JS) không thể kết nối trực tiếp đến MySQL. Bắt buộc phải có một <strong>backend server</strong> (Node.js + Express) làm trung gian giữa frontend và database. Plan này sẽ tạo thêm folder <code>backend/</code> trong <code>Shop/</code>.
+        </div>
+        <div class="alert alert-warning">
+            <strong>Phụ thuộc mới:</strong> Cần cài đặt <code>node.js</code>, <code>npm</code>, và các package <code>express</code>, <code>mysql2</code>, <code>cors</code>. Các máy chạy dự án đều cần có Node.js.
+        </div>
+
+        <h2>Các quyết định đã xác nhận</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Câu hỏi</th>
+                    <th>Quyết định</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>Bảng users</strong></td>
+                    <td>Chưa có → dùng <code>user_id</code> giả định (hardcode <code>user_id = 1</code> trong frontend). Khi có bảng users sẽ bổ sung FK sau.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Port MySQL</strong></td>
+                    <td>Sử dụng port mặc định <strong>3306</strong>. Backend API chạy ở port <strong>3000</strong>.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>Xác thực user</strong></td>
+                    <td>Chưa có hệ thống xác thực → frontend truyền <code>user_id</code> trực tiếp qua API request. Khi có login sẽ thay bằng session/JWT sau.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Proposed Changes</h2>
+
+        <h3>Component 1: Database</h3>
+        <p><strong>[MODIFY] products-data.sql</strong><br>
+        - Đổi tên database thành <code>Database_Web</code> (<code>USE Database_Web;</code>)</p>
+        <p><strong>[MODIFY] cart.sql</strong><br>
+        - Đổi tên database thành <code>Database_Web</code></p>
+
+        <h3>Component 2: Backend API (MỚI)</h3>
+        <p><strong>[NEW] <code>Shop/backend/server.js</code></strong><br>
+        Backend Node.js + Express, dùng <code>cors</code> middleware để xử lý cross-origin:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Endpoint</th>
+                    <th>Chức năng</th>
+                    <th>Thay thế cho</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>GET</code></td>
+                    <td><code>/api/products</code></td>
+                    <td>Lấy toàn bộ sản phẩm từ <code>product_data</code></td>
+                    <td><code>products-data.js</code></td>
+                </tr>
+                <tr>
+                    <td><code>GET</code></td>
+                    <td><code>/api/cart/:userId</code></td>
+                    <td>Lấy giỏ hàng của user</td>
+                    <td><code>localStorage.getItem('cartData')</code></td>
+                </tr>
+                <tr>
+                    <td><code>POST</code></td>
+                    <td><code>/api/cart</code></td>
+                    <td>Thêm/cập nhật sản phẩm trong giỏ</td>
+                    <td><code>localStorage.setItem('cartData', ...)</code></td>
+                </tr>
+                <tr>
+                    <td><code>DELETE</code></td>
+                    <td><code>/api/cart/:userId/:productId</code></td>
+                    <td>Xóa sản phẩm khỏi giỏ</td>
+                    <td><code>cart.splice(index, 1)</code></td>
+                </tr>
+                <tr>
+                    <td><code>PUT</code></td>
+                    <td><code>/api/cart</code></td>
+                    <td>Cập nhật quantity</td>
+                    <td>Nút "UPDATE CART"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>[NEW] <code>Shop/backend/package.json</code></strong><br>
+        - Dependencies: <code>express</code>, <code>mysql2</code>, <code>cors</code></p>
+
+        <p><strong>[NEW] <code>Shop/backend/db.js</code></strong><br>
+        - Module kết nối MySQL đến <code>Database_Web</code><br>
+        - Config: host, user, password, database</p>
+
+        <h3>Component 3: Sửa Frontend JS</h3>
+        <p><strong>[MODIFY] Product Card.js</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hiện tại</th>
+                    <th>Sau sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>getCart()</code> → đọc <code>localStorage</code></td>
+                    <td><code>getCart()</code> → <code>fetch('http://localhost:3000/api/cart/:userId')</code></td>
+                </tr>
+                <tr>
+                    <td><code>saveCart()</code> → ghi <code>localStorage</code></td>
+                    <td><code>saveCart()</code> → <code>fetch('http://localhost:3000/api/cart', { method: 'POST' })</code></td>
+                </tr>
+                <tr>
+                    <td><code>renderProducts()</code> dùng mảng <code>productsData</code> toàn cục</td>
+                    <td><code>renderProducts()</code> gọi <code>fetch('/api/products')</code> lấy dữ liệu, lưu vào biến</td>
+                </tr>
+                <tr>
+                    <td>Add to cart → push vào mảng localStorage</td>
+                    <td>Add to cart → <code>POST /api/cart</code> với <code>{ userId, productId, quantity }</code></td>
+                </tr>
+                <tr>
+                    <td>Remove from cart → splice mảng localStorage</td>
+                    <td>Remove → <code>DELETE /api/cart/:userId/:productId</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>[MODIFY] cart.js</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hiện tại</th>
+                    <th>Sau sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>getCart()</code> → <code>localStorage.getItem</code></td>
+                    <td><code>getCart()</code> → <code>fetch('/api/cart/:userId')</code></td>
+                </tr>
+                <tr>
+                    <td><code>saveCart()</code> → <code>localStorage.setItem</code></td>
+                    <td>Xóa bỏ — mỗi thao tác gọi API trực tiếp</td>
+                </tr>
+                <tr>
+                    <td><code>renderCart()</code> dùng <code>item.imageUrl</code>, <code>item.name</code>...</td>
+                    <td>Dữ liệu trả về từ API đã JOIN với <code>product_data</code>, giữ nguyên logic render</td>
+                </tr>
+                <tr>
+                    <td><code>deleteItem()</code> → splice mảng + saveCart</td>
+                    <td><code>deleteItem()</code> → <code>DELETE /api/cart/:userId/:productId</code></td>
+                </tr>
+                <tr>
+                    <td><code>updateCart()</code> → cập nhật quantity trong mảng</td>
+                    <td><code>updateCart()</code> → <code>PUT /api/cart</code> với danh sách <code>{ productId, quantity }</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Component 4: Sửa HTML</h3>
+        <p><strong>[MODIFY] Assignment.html</strong><br>
+        - <strong>Xóa</strong> thẻ <code>&lt;script src="products-data.js"&gt;</code> — không cần nữa vì dữ liệu lấy từ API</p>
+        <p><strong>[MODIFY] cart.html</strong><br>
+        - <strong>Xóa</strong> thẻ <code>&lt;script src="../products-data.js"&gt;</code> — không cần nữa</p>
+
+        <h3>Component 5: Dọn dẹp</h3>
+        <p><strong>[DELETE] products-data.js</strong><br>
+        - Không cần nữa — dữ liệu đã nằm trong MySQL <code>product_data</code></p>
+
+        <h2>Tóm tắt luồng dữ liệu sau chuyển đổi</h2>
+        <pre><code>1. User mở trang Shop
+   → Product Card.js gọi GET /api/products
+   → Backend query: SELECT * FROM product_data
+   → Trả về JSON → render sản phẩm
+
+2. User bấm "Add to cart"
+   → Product Card.js gọi POST /api/cart { userId, productId, quantity }
+   → Backend: INSERT INTO cart ... ON DUPLICATE KEY UPDATE quantity
+   → Giỏ hàng lưu trong MySQL, đồng bộ mọi thiết bị
+
+3. User mở trang Cart
+   → cart.js gọi GET /api/cart/:userId
+   → Backend query: SELECT c.*, p.name, p.image_url, p.current_price
+                     FROM cart c JOIN product_data p ON c.product_id = p.product_id
+                     WHERE c.user_id = ?
+   → Trả về JSON → render giỏ hàng</code></pre>
+
+    </div>
+</body>
+</html>
