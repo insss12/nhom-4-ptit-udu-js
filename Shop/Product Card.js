@@ -11,7 +11,15 @@ function initSidebarAccordion() {
 
 const ITEMS_PER_PAGE = 12;
 let currentPage = 1;
-let cartItems = 0;
+
+function getCart() {
+    const data = localStorage.getItem('cartData');
+    return data ? JSON.parse(data) : [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem('cartData', JSON.stringify(cart));
+}
 
 function generateStars(rating) {
     let starsHtml = '';
@@ -32,7 +40,8 @@ function renderProducts() {
 
     let htmlContent = '';
     
-    paginatedProducts.forEach(product => {
+    paginatedProducts.forEach((product, idx) => {
+        const globalIndex = startIndex + idx;
         const saleBadgeHtml = product.isSale ? `<span class="sale-badge">SALE!</span>` : '';
         
         htmlContent += `
@@ -48,11 +57,11 @@ function renderProducts() {
                     <span class="new-price">$${product.newPrice.toFixed(2)}</span>
                 </div>
                 <div class="product-actions">
-                    <button class="add-to-cart-btn">Add to cart</button>
-                    <button class="remove-from-cart-btn">Remove</button>
+                    <button class="add-to-cart-btn" data-index="${globalIndex}">Add to cart</button>
+                    <button class="remove-from-cart-btn" data-index="${globalIndex}">Remove</button>
                 </div>
                 <div class="product-overlay">
-                    <button class="quick-view-btn">Quick View</button>
+                    <button class="quick-view-btn" data-index="${globalIndex}">Quick View</button>
                 </div>
             </article>
         `;
@@ -61,6 +70,7 @@ function renderProducts() {
     gridContainer.innerHTML = htmlContent;
     renderPagination();
     attachAddToCartListeners();
+    attachQuickViewListeners();
 }
 
 function attachAddToCartListeners() {
@@ -68,16 +78,41 @@ function attachAddToCartListeners() {
     const removeFromCartButtons = document.querySelectorAll('.remove-from-cart-btn');
     
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            cartItems++;
-            updateCartDisplay();
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const index = this.getAttribute('data-index');
+            const product = productsData[index];
+            if (product) {
+                const cart = getCart();
+                const existingItem = cart.find(item => item.index == index);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        index: index,
+                        name: product.name,
+                        imageUrl: product.imageUrl,
+                        newPrice: product.newPrice,
+                        quantity: 1
+                    });
+                }
+                saveCart(cart);
+                updateCartDisplay();
+                
+
+            }
         });
     });
     
     removeFromCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (cartItems > 0) {
-                cartItems--;
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const index = this.getAttribute('data-index');
+            const cart = getCart();
+            const existingItemIndex = cart.findIndex(item => item.index == index);
+            if (existingItemIndex > -1) {
+                cart.splice(existingItemIndex, 1);
+                saveCart(cart);
                 updateCartDisplay();
             }
         });
@@ -87,7 +122,9 @@ function attachAddToCartListeners() {
 function updateCartDisplay() {
     const cartCountElement = document.querySelector('.cart-count');
     if (cartCountElement) {
-        cartCountElement.textContent = cartItems + ' items';
+        const cart = getCart();
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountElement.textContent = totalItems + ' items';
     }
 }
 
@@ -148,5 +185,104 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
     renderProducts();       
     initSidebarAccordion(); 
+
+    const headerCartBtn = document.getElementById('headerCartBtn');
+    const headerCartDropdown = document.getElementById('headerCartDropdown');
+    
+    if (headerCartBtn && headerCartDropdown) {
+        headerCartBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            headerCartDropdown.classList.toggle('show');
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.cart-dropdown-container')) {
+            if (headerCartDropdown) headerCartDropdown.classList.remove('show');
+        }
+    });
 });
 
+function attachQuickViewListeners() {
+    const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+    quickViewBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const index = btn.getAttribute('data-index');
+            openQuickView(index);
+        });
+    });
+}
+
+function openQuickView(index) {
+    const product = productsData[index];
+    if (!product) return;
+
+    closeQuickView(); // Close any existing modal
+
+    const overlayHtml = `
+        <div class="quickview-overlay" id="quickviewOverlay">
+            <div class="quickview-modal">
+                <button class="quickview-close" id="quickviewClose">&times;</button>
+                <div class="quickview-image">
+                    <img src="${product.imageUrl}" alt="${product.name}">
+                </div>
+                <div class="quickview-info">
+                    <h2 class="quickview-name">${product.name}</h2>
+                    <div class="quickview-price-row">
+                        <span class="new-price">$${product.newPrice.toFixed(2)}</span>
+                        ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                    </div>
+                    <div class="quickview-stars">${generateStars(product.rating)}</div>
+                    
+                    <div class="quickview-cart-row">
+                        <input type="number" class="quickview-qty" id="quickviewQty" value="1" min="1">
+                        <button class="quickview-add-btn" id="quickviewAddBtn">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', overlayHtml);
+
+    const overlay = document.getElementById('quickviewOverlay');
+    const closeBtn = document.getElementById('quickviewClose');
+    const addBtn = document.getElementById('quickviewAddBtn');
+    const qtyInput = document.getElementById('quickviewQty');
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            closeQuickView();
+        }
+    });
+
+    closeBtn.addEventListener('click', closeQuickView);
+
+    addBtn.addEventListener('click', () => {
+        const qty = parseInt(qtyInput.value) || 1;
+        const cart = getCart();
+        const existingItem = cart.find(item => item.index == index);
+        if (existingItem) {
+            existingItem.quantity += qty;
+        } else {
+            cart.push({
+                index: index,
+                name: product.name,
+                imageUrl: product.imageUrl,
+                newPrice: product.newPrice,
+                quantity: qty
+            });
+        }
+        saveCart(cart);
+        updateCartDisplay();
+        closeQuickView();
+    });
+}
+
+function closeQuickView() {
+    const overlay = document.getElementById('quickviewOverlay');
+    if (overlay) {
+        overlay.remove();
+    }
+}

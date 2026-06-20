@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo-box">
+                <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Logo" class="site-logo">
+                RUSU
+            </a>
+
+            <nav class="menu-box">
+                <ul class="nav-list">
+                    <li class="menu-item"><a href="../../Thanh/main.html">Home</a></li>
+                    <li class="menu-item"><a href="../Assignment.html">Shop</a></li>
+                    <li class="menu-item"><a href="../../Blog/Blogfix2.html">Blog</a></li>
+                    <li class="menu-item"><a href="#">Contact Us</a></li>
+                    <li class="menu-item"><a href="#">My Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="banner">
+        <img src="../DataImage/Banner.png" alt="Modern Electronics Collection" fetchpriority="high">
+    </div>
+
+    <nav aria-label="breadcrumb" class="breadcrumb-container">
+        <a href="../../Thanh/main.html">Home</a> &gt; <a href="../Assignment.html">Shop</a> &gt; <span class="current" aria-current="page">Cart</span>
+    </nav>
+
+    <main class="cart-page-container">
+        <table class="cart-table" id="cartTable">
+            <thead>
+                <tr>
+                    <th>Delete</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+                <!-- Items will be generated here -->
+            </tbody>
+        </table>
+
+        <div class="cart-actions" id="cartActions">
+            <button class="update-cart-btn" id="updateCartBtn">UPDATE CART</button>
+        </div>
+        
+        <div id="emptyCartMessage" class="empty-cart-message" style="display: none;">
+            Your cart is currently empty.
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>CONTACTS US</h4>
+                    <p>Address: Javaproject</p>
+                    <p>Phone: 0123456789</p>
+                    <p>Email: Javaproject@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>INFORMATION</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Best Sales</a>
+                </div>
+                <div class="footer-col">
+                    <h4>MY ACCOUNT</h4>
+                    <a href="#">My Account</a>
+                    <a href="#">Shopping Cart</a>
+                </div>
+                <div class="footer-col">
+                    <h4>CUSTOMER SERVICE</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Order History</a>
+                    <a href="#">Specials</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Pj</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../products-data.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
