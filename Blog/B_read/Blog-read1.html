@@ -2,19 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-  <title>Blog 1</title>
-  <link rel="stylesheet" href="Blogstyle.css">
-</head>
-
-
-<body>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-  <title>My Website</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Blog 1</title>
+    <link rel="stylesheet" href="../stylefix1.2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -33,86 +26,41 @@
 </div>
 
 <!-- MAIN HEADER -->
-<header class="main-header">
-  <div class="container header-flex">
-    
-    <!-- Logo -->
-    <div class="logo">
-      <h1>Add soon :v</h1>
-    </div>
+<header class="header">
+  <div class="header-container">
+    <a href="#" class="logo-box">
+      <img src="../KhoPhoto/rusu.png" alt="Logo" class="site-logo">RUSU
+    </a>
 
-    <!-- Menu -->
-    <nav class="menu">
-      <a href="#">HOME</a>
-      <a href="#">SHOP</a>
-      <a href="#">BLOG</a>
-      <a href="#">PAGES</a>
-      <a href="#">CONTACT US</a>
+    <nav class="menu-box">
+      <ul class="nav-list">
+        <li class="menu-item"><a href="../Thanh/main.html">Home</a></li>
+        <li class="menu-item"><a href="../Shop/Assignment.html">Shop</a></li>
+        <li class="menu-item"><a href="../Blog/Blogfix2.html">Blog</a></li>
+      </ul>
     </nav>
-
   </div>
 </header>
 
-<!-- SEARCH BAR -->
-<div class="search-bar">
-  <div class="container search-flex">
-
-    <button class="category-btn">ALL CATEGORIES ☰</button>
-
-    <input type="text" placeholder="Search product...">
-
-    <button class="search-btn">SEARCH</button>
-
-    <div class="cart">
-      🛒 2 items - $152.00
-    </div>
-
-  </div>
-</div>
-
-
 <div class="blog-layout">
-
-  <!-- LEFT: Nội dung bài -->
   <div class="blog-detail">
-
     <img src="blog1.jpg" class="blog-img">
-
     <h1 class="blog-title">Top 5 Gadgets You Must Have</h1>
-
     <p class="blog-meta">By Admin | April 5, 2026</p>
-
-    <p>
-      se co noi dung day du sau
-    </p>
-
+    <p>se co noi dung day du sau</p>
     <h3>Why these gadgets?</h3>
-
-    <p>
-      se co noi dung day du sau
-    </p>
-
-    <blockquote>
-      "Technology is best when it brings people together."
-    </blockquote>
-
-    <p>
-      se co noi dung day du sau
-    </p>
-
+    <p>se co noi dung day du sau</p>
+    <blockquote>"Technology is best when it brings people together."</blockquote>
+    <p>se co noi dung day du sau</p>
   </div>
 
-  <!-- RIGHT: Sidebar -->
   <div class="sidebar">
-
-    <!-- Search -->
     <div class="widget">
       <h3>SEARCH</h3>
-      <input type="text" placeholder="Search...">
-      <button>SEARCH</button>
+      <input type="text" id="blogSearch" placeholder="Search...">
+      <button id="searchBtn">SEARCH</button>
     </div>
 
-    <!-- Recent Posts -->
     <div class="widget">
       <h3>RECENT POSTS</h3>
       <ul>
@@ -121,16 +69,11 @@
         <li><a href="#">Top Gaming Laptop</a></li>
       </ul>
     </div>
-
   </div>
-
 </div>
 
 <div class="comments-section">
-
   <h3>3 COMMENTS</h3>
-
-  <!-- Comment item -->
   <div class="comment-item">
     <img src="avatar.jpg" class="avatar">
     <div class="comment-box">
@@ -142,7 +85,6 @@
       <p>But I must explain to you how all this mistaken idea...</p>
     </div>
   </div>
-
   <div class="comment-item">
     <img src="avatar.jpg" class="avatar">
     <div class="comment-box">
@@ -154,7 +96,6 @@
       <p>test...</p>
     </div>
   </div>
-
   <div class="comment-item">
     <img src="avatar.jpg" class="avatar">
     <div class="comment-box">
@@ -166,23 +107,19 @@
       <p>TEST...</p>
     </div>
   </div>
-
 </div>
 
 <div class="comment-form">
   <h3>LEAVE A REPLY</h3>
-
   <p>Your email address will not be published. Required fields are marked *</p>
-
   <textarea placeholder="Comment"></textarea>
-
   <div class="form-row">
     <input type="text" placeholder="Name *">
     <input type="email" placeholder="Email *">
   </div>
-
   <button class="submit-btn">POST COMMENT</button>
 </div>
 
+<script src="../kho Js/js.js"></script>
 </body>
 </html>
