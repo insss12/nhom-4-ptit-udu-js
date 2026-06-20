@@ -94,14 +94,13 @@ body{
 }
 
 /*DROPDOWN LAYOUT*/
-
 .search-wrapper{
   display: flex;
   gap: 30px;
   align-items: flex-start;
   position: relative;
   max-width: 1200px;
-  margin: 80px auto;
+  margin: 70px auto 1px;
 }
 
 .category-box{
@@ -161,7 +160,7 @@ body{
 
 .search-form{
   display: flex;
-  height: 70px;
+  height: 65.6px;
 }
 
 .search-form select{
@@ -561,3 +560,4 @@ body{
   color: white;
   border-color: #2f6fed;
 }
+
