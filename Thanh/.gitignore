@@ -1,0 +1,16 @@
+# Bỏ qua thư viện (người khác sẽ dùng lệnh npm install để tải lại)
+node_modules/
+
+# Bỏ qua file cấu hình môi trường (cực kỳ quan trọng để bảo mật)
+.env
+
+# Bỏ qua file log và các file hệ thống
+*.log
+npm-debug.log*
+.DS_Store
+.vscode/
+.idea/
+
+#Bỏ qua file json local
+package.json
+package-lock.json
