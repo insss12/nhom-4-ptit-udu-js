@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tài khoản của tôi</title>
+</head>
+<body>
+<div class="account-shell">
+    <div class="account-wrap">
+        <div class="account-top">
+            <div class="brand-mark">RUSU</div>
+            <div style="display: flex; gap: 10px;">
+                <a href="main.html" class="btn-outline">Trang chủ</a>
+                <button class="btn-outline logout" onclick="logout()">Đăng xuất</button>
+            </div>
+        </div>
+        <div class="account-card">
+            <h1>Thông tin tài khoản</h1>
+            <div id="userInfo">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function loadAccount() {
+    const res = await fetch("/api/account");
+    if(!res.ok) return window.location.href = "login.html";
+    const user = await res.json();
+    
+    document.getElementById("userInfo").innerHTML = `
+        <div class="info-row"><label>Họ tên:</label> <span class="value">${user.fullName || 'Chưa cập nhật'}</span></div>
+        <div class="info-row"><label>Email:</label> <span class="value">${user.email}</span></div>
+        <div class="info-row"><label>Số điện thoại:</label> <span class="value">${user.phone || '<i>Chưa thiết lập</i>'}</span></div>
+        <div class="info-row"><label>Địa chỉ:</label> <span class="value">${user.address || '<i>Chưa thiết lập</i>'}</span></div>
+    `;
+}
+
+async function logout() {
+    await fetch("/api/logout", { method: "POST" });
+    window.location.href = "login.html";
+}
+loadAccount();
+</script>
+</body>
+</html>

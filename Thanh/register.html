@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Đăng ký</title>
+</head>
+<body>
+<div class="auth-shell">
+    <div class="form-panel">
+        <div class="form-card">
+            <a href="main.html" class="back-home">← Quay lại trang chủ</a>
+            
+            <h1>Đăng ký tài khoản</h1>
+            <div id="authBanner" class="banner"></div>
+
+            <div class="field">
+                <label>Họ tên</label>
+                <input type="text" id="fullName" placeholder="Nhập họ và tên">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Nhập địa chỉ email">
+            </div>
+            <div class="field">
+                <label>Mật khẩu</label>
+                <input type="password" id="password" placeholder="Tạo mật khẩu an toàn">
+            </div>
+            <button class="btn-primary" onclick="register()">Tạo tài khoản</button>
+            <div class="form-footer">Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a></div>
+        </div>
+    </div>
+    
+    <div class="brand-panel">
+        <div class="brand-mark">RUSU</div>
+        <div class="brand-quote">Trở thành thành viên của Rusu để nhận nhiều ưu đãi đặc quyền.</div>
+        <div class="brand-foot">© 2026 Rusu Project. All rights reserved.</div>
+    </div>
+</div>
+
+<script>
+function showMsg(text, type) {
+    const b = document.getElementById("authBanner");
+    b.className = "banner " + type;
+    b.innerText = text;
+}
+
+async function register() {
+    showMsg("", "");
+    const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+            fullName: document.getElementById("fullName").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        })
+    });
+    const data = await res.json();
+    if(!res.ok) {
+        showMsg(data.message || "Đăng ký thất bại", "error");
+    } else {
+        showMsg("Đăng ký thành công! Đang chuyển đến trang đăng nhập...", "success");
+        setTimeout(() => window.location.href = "login.html", 1500);
+    }
+}
+</script>
+</body>
+</html>

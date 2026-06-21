@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap');
+
+:root {
+  --ink: #222222;          
+  --bg: #f5f6f8;           
+  --white: #ffffff;
+  --accent: #3b6db3;       /* Xanh thương hiệu RUSU */
+  --accent-hover: #1a4f9c; 
+  --line: #ddd;            
+  --error: #ff5a00;        
+  --muted: #666666;        
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--bg); }
+a { text-decoration: none; transition: all 0.2s; }
+
+/* Nút quay lại trang chủ */
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.back-home:hover {
+  color: var(--accent);
+}
+
+/* Cấu trúc Auth dạng Card */
+.auth-shell { 
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.form-panel { 
+  order: 1; 
+  background: var(--white); 
+  width: 100%;
+  max-width: 400px; 
+  padding: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.form-card h1 { 
+  font-size: 26px; 
+  font-weight: 700; 
+  margin-bottom: 20px; 
+  color: var(--accent);
+}
+
+.banner { 
+  display: none; 
+  padding: 12px; 
+  border-radius: 6px; 
+  font-size: 13px; 
+  margin-bottom: 16px; 
+  font-weight: 500;
+  text-align: center;
+}
+.banner.error { display: block; background: #fdf2f2; color: var(--error); border: 1px solid rgba(255, 90, 0, 0.15); }
+.banner.success { display: block; background: #f0fdf4; color: #15803d; border: 1px solid rgba(21, 128, 61, 0.15); }
+
+.brand-panel { 
+  order: 2; 
+  margin-top: 24px;
+  text-align: center;
+  max-width: 400px;
+}
+.brand-mark { font-size: 18px; font-weight: 800; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }
+.brand-quote { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
+.brand-foot { font-size: 12px; color: #999999; }
+
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+.field input { width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px; outline: none; }
+.field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59, 109, 179, 0.15); }
+
+.btn-primary { width: 100%; padding: 12px; border: none; border-radius: 6px; background: var(--accent); color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
+.btn-primary:hover { background: var(--accent-hover); }
+
+.form-footer { margin-top: 20px; font-size: 14px; color: var(--muted); text-align: center; }
+.form-footer a { color: var(--accent); font-weight: 600; }
+.form-footer a:hover { text-decoration: underline; }
+
+/* Trang Account */
+.account-shell { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+.account-wrap { width: 100%; max-width: 500px; }
+.account-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.account-card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 32px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
+.account-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+.info-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.info-row:last-of-type { border-bottom: none; margin-bottom: 16px; }
+.info-row label { color: var(--muted); font-weight: 600; }
+.info-row .value { font-weight: 500; color: var(--ink); }
+
+.btn-outline { display: inline-block; padding: 8px 16px; border: 1px solid var(--line); border-radius: 6px; background: transparent; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; color: var(--ink); cursor: pointer; text-align: center; }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-outline.logout:hover { border-color: var(--error); color: var(--error); background: rgba(255, 90, 0, 0.05); }

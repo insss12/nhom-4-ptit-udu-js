@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Đăng nhập</title>
+</head>
+<body>
+<div class="auth-shell">
+    <div class="form-panel">
+        <div class="form-card">
+            <a href="main.html" class="back-home">← Quay lại trang chủ</a>
+            
+            <h1>Đăng nhập</h1>
+            <div id="authBanner" class="banner"></div>
+
+            <div class="field">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Nhập email của bạn">
+            </div>
+            <div class="field">
+                <label>Mật khẩu</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu">
+            </div>
+            <button class="btn-primary" onclick="login()">Đăng nhập</button>
+            <div class="form-footer">Chưa có tài khoản? <a href="register.html">Tạo tài khoản ngay</a></div>
+        </div>
+    </div>
+    
+    <div class="brand-panel">
+        <div class="brand-mark">RUSU</div>
+        <div class="brand-quote">Chào mừng trở lại! Khám phá không gian mua sắm tuyệt vời.</div>
+        <div class="brand-foot">© 2026 Rusu Project. All rights reserved.</div>
+    </div>
+</div>
+
+<script>
+function showMsg(text, type) {
+    const b = document.getElementById("authBanner");
+    b.className = "banner " + type;
+    b.innerText = text;
+}
+
+async function login() {
+    showMsg("", "");
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        })
+    });
+    const data = await res.json();
+    if(!res.ok) {
+        showMsg(data.message || "Sai thông tin đăng nhập", "error");
+    } else {
+        showMsg("Đăng nhập thành công! Đang chuyển hướng...", "success");
+        // Đã có tài khoản -> Chuyển thẳng đến My Account
+        setTimeout(() => window.location.href = "main.html", 1000);
+    }
+}
+</script>
+</body>
+</html>
