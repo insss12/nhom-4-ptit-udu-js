@@ -14,16 +14,16 @@
     <header class="header">
         <div class="header-container">
             <a href="#" class="logo-box">
-                <img src="https://via.placeholder.com/40x40/2d6cdf/ffffff?text=L" alt="Logo" class="site-logo">
+                <img src="../../Blog/KhoPhoto/rusu.png" alt="Logo" class="site-logo">
                 <span class="logo-text">RUSU</span>
             </a>
             <nav class="menu-box">
                 <ul class="nav-list">
-                    <li class="menu-item"><a href="#">HOME</a></li>
-                    <li class="menu-item"><a href="#">SHOP</a></li>
-                    <li class="menu-item"><a href="#">BLOG</a></li>
-                    <li class="menu-item"><a href="#">CONTACT US</a></li>
-                    <li class="menu-item"><a href="#">MY ACCOUNT</a></li>
+                    <li class="menu-item"><a href="main.html">HOME</a></li>
+                    <li class="menu-item"><a href="../Shop/Assignment.html">SHOP</a></li>
+                    <li class="menu-item"><a href="../Blog/Blogfix2.html">BLOG</a></li>
+                    <li class="menu-item"><a href="../Shop/Contact Us/contact.html">CONTACT US</a></li>
+                    <li class="menu-item"><a href="#" onclick="checkAccount(event)">MY ACCOUNT</a></li>
                 </ul>
             </nav>
         </div>
@@ -302,7 +302,7 @@
                     </div>
                     <div class="footer-col">
                         <h4>MY ACCOUNT</h4>
-                        <a href="#">My Account</a>
+                        <a href="#" onclick="checkAccount(event)">My Account</a>
                         <a href="#">Shopping Cart</a>
                     </div>
                     <div class="footer-col">
@@ -321,5 +321,21 @@
     </div>
 
     <script src="main.js" defer></script>
+
+    <script>
+    async function checkAccount(event) {
+        if (event) event.preventDefault(); 
+        try {
+            const res = await fetch("/api/account");
+            if (res.ok) {
+                window.location.href = "account.html";
+            } else {
+                window.location.href = "login.html";
+            }
+        } catch (error) {
+            window.location.href = "login.html";
+        }
+    }
+    </script>
 </body>
 </html>
