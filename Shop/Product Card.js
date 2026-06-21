@@ -12,13 +12,27 @@ function initSidebarAccordion() {
 const ITEMS_PER_PAGE = 12;
 let currentPage = 1;
 
-function getCart() {
-    const data = localStorage.getItem('cartData');
-    return data ? JSON.parse(data) : [];
-}
+let productsData = [];
 
-function saveCart(cart) {
-    localStorage.setItem('cartData', JSON.stringify(cart));
+async function loadProducts() {
+    try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+            const data = await res.json();
+            productsData = data.map(p => ({
+                id: p.id,
+                name: p.name,
+                rating: p.rating,
+                isSale: p.is_sale,
+                imageUrl: p.image_url,
+                oldPrice: p.old_price ? parseFloat(p.old_price) : null,
+                newPrice: parseFloat(p.new_price)
+            }));
+            renderProducts();
+        }
+    } catch (e) {
+        console.error("Lỗi lấy sản phẩm", e);
+    }
 }
 
 function generateStars(rating) {
@@ -78,53 +92,55 @@ function attachAddToCartListeners() {
     const removeFromCartButtons = document.querySelectorAll('.remove-from-cart-btn');
     
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', async function(e) {
             e.preventDefault();
             const index = this.getAttribute('data-index');
             const product = productsData[index];
             if (product) {
-                const cart = getCart();
-                const existingItem = cart.find(item => item.index == index);
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({
-                        index: index,
-                        name: product.name,
-                        imageUrl: product.imageUrl,
-                        newPrice: product.newPrice,
-                        quantity: 1
+                try {
+                    await fetch('/api/cart', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: 1, productId: product.id, quantity: 1 })
                     });
+                    await updateCartDisplay();
+                } catch(e) {
+                    console.error(e);
                 }
-                saveCart(cart);
-                updateCartDisplay();
-                
-
             }
         });
     });
     
     removeFromCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', async function(e) {
             e.preventDefault();
             const index = this.getAttribute('data-index');
-            const cart = getCart();
-            const existingItemIndex = cart.findIndex(item => item.index == index);
-            if (existingItemIndex > -1) {
-                cart.splice(existingItemIndex, 1);
-                saveCart(cart);
-                updateCartDisplay();
+            const product = productsData[index];
+            if (product) {
+                try {
+                    await fetch(`/api/cart/1/${product.id}`, { method: 'DELETE' });
+                    await updateCartDisplay();
+                } catch(e) {
+                    console.error(e);
+                }
             }
         });
     });
 }
 
-function updateCartDisplay() {
+async function updateCartDisplay() {
     const cartCountElement = document.querySelector('.cart-count');
     if (cartCountElement) {
-        const cart = getCart();
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElement.textContent = totalItems + ' items';
+        try {
+            const res = await fetch('/api/cart/1');
+            if (res.ok) {
+                const cart = await res.json();
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems + ' items';
+            }
+        } catch(e) {
+            console.error(e);
+        }
     }
 }
 
@@ -183,7 +199,7 @@ function goToPage(pageNumber) {
 
 document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
-    renderProducts();       
+    loadProducts();       
     initSidebarAccordion(); 
 
     const headerCartBtn = document.getElementById('headerCartBtn');
@@ -218,7 +234,7 @@ function openQuickView(index) {
     const product = productsData[index];
     if (!product) return;
 
-    closeQuickView(); // Close any existing modal
+    closeQuickView(); 
 
     const overlayHtml = `
         <div class="quickview-overlay" id="quickviewOverlay">
@@ -259,24 +275,19 @@ function openQuickView(index) {
 
     closeBtn.addEventListener('click', closeQuickView);
 
-    addBtn.addEventListener('click', () => {
+    addBtn.addEventListener('click', async () => {
         const qty = parseInt(qtyInput.value) || 1;
-        const cart = getCart();
-        const existingItem = cart.find(item => item.index == index);
-        if (existingItem) {
-            existingItem.quantity += qty;
-        } else {
-            cart.push({
-                index: index,
-                name: product.name,
-                imageUrl: product.imageUrl,
-                newPrice: product.newPrice,
-                quantity: qty
+        try {
+            await fetch('/api/cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: 1, productId: product.id, quantity: qty })
             });
+            await updateCartDisplay();
+            closeQuickView();
+        } catch(e) {
+            console.error(e);
         }
-        saveCart(cart);
-        updateCartDisplay();
-        closeQuickView();
     });
 }
 
