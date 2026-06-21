@@ -7,17 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function getCart() {
-    const data = localStorage.getItem('cartData');
-    return data ? JSON.parse(data) : [];
+async function getCart() {
+    try {
+        const res = await fetch('/api/cart/1');
+        if (res.ok) {
+            return await res.json();
+        }
+        return [];
+    } catch(e) {
+        console.error(e);
+        return [];
+    }
 }
 
-function saveCart(cart) {
-    localStorage.setItem('cartData', JSON.stringify(cart));
-}
-
-function renderCart() {
-    const cart = getCart();
+async function renderCart() {
+    const cart = await getCart();
     const tbody = document.getElementById('cart-body');
     const table = document.getElementById('cartTable');
     const actions = document.getElementById('cartActions');
@@ -35,12 +39,12 @@ function renderCart() {
     emptyMsg.style.display = 'none';
 
     let html = '';
-    cart.forEach((item, i) => {
+    cart.forEach((item) => {
         const total = (item.newPrice * item.quantity).toFixed(2);
         html += `
             <tr>
                 <td>
-                    <button class="cart-delete-btn" onclick="deleteItem(${i})">🗑️</button>
+                    <button class="cart-delete-btn" onclick="deleteItem(${item.id})">🗑️</button>
                 </td>
                 <td>
                     <img src="../${item.imageUrl}" alt="${item.name}" class="cart-product-img">
@@ -48,11 +52,11 @@ function renderCart() {
                 <td>
                     <a href="#" class="cart-product-name">${item.name}</a>
                 </td>
-                <td class="cart-price">£${item.newPrice.toFixed(2)}</td>
+                <td class="cart-price">$${Number(item.newPrice).toFixed(2)}</td>
                 <td>
-                    Quantity <input type="number" class="cart-qty-input" data-index="${i}" value="${item.quantity}" min="1">
+                    Quantity <input type="number" class="cart-qty-input" data-id="${item.id}" value="${item.quantity}" min="1">
                 </td>
-                <td class="cart-total" id="total-${i}">£${total}</td>
+                <td class="cart-total" id="total-${item.id}">$${total}</td>
             </tr>
         `;
     });
@@ -60,25 +64,33 @@ function renderCart() {
     tbody.innerHTML = html;
 }
 
-function deleteItem(index) {
-    const cart = getCart();
-    cart.splice(index, 1);
-    saveCart(cart);
-    renderCart();
+async function deleteItem(productId) {
+    try {
+        await fetch(`/api/cart/1/${productId}`, { method: 'DELETE' });
+        await renderCart();
+    } catch (e) {
+        console.error(e);
+    }
 }
 
-function updateCart() {
-    const cart = getCart();
+async function updateCart() {
     const inputs = document.querySelectorAll('.cart-qty-input');
+    const items = [];
     
     inputs.forEach(input => {
-        const index = parseInt(input.getAttribute('data-index'));
+        const productId = parseInt(input.getAttribute('data-id'));
         const qty = parseInt(input.value) || 1;
-        if (cart[index]) {
-            cart[index].quantity = qty;
-        }
+        items.push({ productId, quantity: qty });
     });
     
-    saveCart(cart);
-    renderCart();
+    try {
+        await fetch('/api/cart', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: 1, items })
+        });
+        await renderCart();
+    } catch(e) {
+        console.error(e);
+    }
 }
